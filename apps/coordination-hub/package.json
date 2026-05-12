@@ -33,7 +33,7 @@
     "archiver": "^7.0.1",
     "bcryptjs": "^2.4.3",
     "ethers": "^6.13.4",
-    "file-type": "^18.7.0",
+    "file-type": "^22.0.1",
     "helmet": "^8.0.0",
     "ipfs-http-client": "^60.0.1",
     "mongoose": "^8.8.1",
