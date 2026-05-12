@@ -1,0 +1,37 @@
+{
+  "name": "qr-blockchain-anticounterfeiting",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reproducibility artifact for QR-coded blockchain anti-counterfeiting paper",
+  "license": "MIT",
+  "packageManager": "pnpm@10.11.0",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "husky",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml,sol}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml,sol}\"",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --max-warnings 0 --no-error-on-unmatched-pattern",
+    "typecheck": "echo 'no workspaces yet' && exit 0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@typescript-eslint/eslint-plugin": "^8.13.0",
+    "@typescript-eslint/parser": "^8.13.0",
+    "eslint": "^8.57.1",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "prettier-plugin-solidity": "^1.4.1",
+    "typescript": "^5.6.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "canvas"
+    ]
+  }
+}

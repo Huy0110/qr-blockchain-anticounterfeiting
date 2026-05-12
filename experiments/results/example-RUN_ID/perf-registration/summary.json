@@ -1,0 +1,50 @@
+{
+  "experiment": "perf-registration",
+  "reproduces": "Paper Table 3 row 1",
+  "network": "amoy",
+  "trials": 30,
+  "runId": "example-RUN_ID",
+  "note": "Sample committed for reviewer preview without running. Reproduce with `pnpm exp:perf-registration --trials 30 --network amoy`.",
+  "summary": {
+    "n": 30,
+    "mean": 4870.5,
+    "stdDev": 412.3,
+    "min": 4150.2,
+    "max": 5780.9,
+    "median": 4830.1,
+    "ci95Low": 4722.8,
+    "ci95High": 5018.2
+  },
+  "splits": {
+    "genHashMs": {
+      "n": 30,
+      "mean": 32.8,
+      "stdDev": 4.1,
+      "min": 27.5,
+      "max": 41.2,
+      "median": 32.6,
+      "ci95Low": 31.3,
+      "ci95High": 34.3
+    },
+    "submitMs": {
+      "n": 30,
+      "mean": 412.5,
+      "stdDev": 95.7,
+      "min": 280.4,
+      "max": 612.8,
+      "median": 405.0,
+      "ci95Low": 378.3,
+      "ci95High": 446.7
+    },
+    "confirmMs": {
+      "n": 30,
+      "mean": 4425.2,
+      "stdDev": 405.4,
+      "min": 3820.1,
+      "max": 5320.5,
+      "median": 4400.0,
+      "ci95Low": 4280.1,
+      "ci95High": 4570.3
+    }
+  }
+}

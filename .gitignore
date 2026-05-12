@@ -1,0 +1,36 @@
+# Build outputs
+node_modules/
+dist/
+.next/
+out/
+contracts/out/
+contracts/cache/
+packages/shared/dist/
+*.tsbuildinfo
+
+# Foundry
+contracts/broadcast/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+!.env.testnet.example
+!.env.production.example
+*.pem
+*.key
+*.token
+
+# Test artifacts
+coverage/
+playwright-report/
+test-results/
+*.log
+
+# Local volumes
+.docker-volumes/

@@ -1,0 +1,65 @@
+{
+  "producerEmail": "htx-tanduc@demo.qrbc.local",
+  "project": {
+    "cooperativeName": "HTX Tân Đức",
+    "vegetableType": "cải xanh",
+    "cultivationLocation": {
+      "address": "Tân Đức, Hàm Tân, Bình Thuận",
+      "province": "Bình Thuận",
+      "coordinates": { "lat": 10.7167, "lng": 107.7833 }
+    },
+    "startDate": "2026-02-01T00:00:00.000Z",
+    "harvestDate": "2026-05-15T00:00:00.000Z",
+    "cultivationArea": 2200,
+    "expectedOutput": 1300,
+    "description": "Cải xanh hữu cơ trồng trên đất pha cát, tưới nhỏ giọt."
+  },
+  "activities": [
+    {
+      "type": "land_preparation",
+      "activityDate": "2026-01-25T00:00:00.000Z",
+      "name": "Cày bừa và bón lót",
+      "description": "Cày sâu 25 cm, bón phân hữu cơ 2 tấn/ha.",
+      "materials": ["phân chuồng ủ hoai", "vôi bột"]
+    },
+    {
+      "type": "planting",
+      "activityDate": "2026-02-05T00:00:00.000Z",
+      "name": "Gieo hạt cải xanh",
+      "description": "Mật độ 30x20 cm, hàng cách hàng 30 cm.",
+      "materials": ["hạt giống cải xanh F1"]
+    },
+    {
+      "type": "fertilizing",
+      "activityDate": "2026-03-01T00:00:00.000Z",
+      "name": "Bón thúc đợt 1",
+      "description": "Phân bón hữu cơ vi sinh, không sử dụng đạm hoá học."
+    },
+    {
+      "type": "pest_control",
+      "activityDate": "2026-03-20T00:00:00.000Z",
+      "name": "Phòng trừ sâu khoang sinh học",
+      "description": "Thả thiên địch (ong ký sinh), không phun thuốc BVTV.",
+      "materials": ["chế phẩm sinh học BT"]
+    },
+    {
+      "type": "harvesting",
+      "activityDate": "2026-05-10T00:00:00.000Z",
+      "name": "Thu hoạch cuốn đầu",
+      "description": "Thu hoạch buổi sáng, vận chuyển kho lạnh trong 2 giờ."
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Hữu cơ Việt Nam (TCVN 11041)",
+      "issuer": "Tổ chức chứng nhận hữu cơ NHO-QSCert",
+      "issueDate": "2024-11-15T00:00:00.000Z",
+      "expiryDate": "2027-11-15T00:00:00.000Z"
+    }
+  ],
+  "imageUrls": [
+    "ipfs://bamockseed-htxtanduc-1",
+    "ipfs://bamockseed-htxtanduc-2",
+    "ipfs://bamockseed-htxtanduc-3"
+  ]
+}

@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: 'If you use this software, please cite both the software and the paper.'
+type: software
+authors:
+  - family-names: Pham
+    given-names: Duc Huy
+    affiliation: Hanoi University of Science and Technology
+  - family-names: Trinh
+    given-names: Tuan-Dat
+    affiliation: Hanoi University of Science and Technology
+    email: dattt@soict.hust.edu.vn
+title: 'qr-blockchain-anticounterfeiting: Reference Implementation for Dual-QR Blockchain Authentication'
+version: 1.0.0
+date-released: 2026-05-11
+license: MIT
+repository-code: 'https://github.com/Huy0110/qr-blockchain-anticounterfeiting'
+keywords:
+  - blockchain
+  - anti-counterfeiting
+  - QR code
+  - smart contract
+  - agriculture
+  - Polygon
+  - supply chain
+preferred-citation:
+  type: article
+  title: 'A Dual-QR Blockchain-Based Authentication Mechanism for Agricultural Anti-Counterfeiting'
+  authors:
+    - family-names: Pham
+      given-names: Duc Huy
+      affiliation: Hanoi University of Science and Technology
+    - family-names: Trinh
+      given-names: Tuan-Dat
+      affiliation: Hanoi University of Science and Technology
+  journal: Frontiers in Blockchain
+  year: 2026

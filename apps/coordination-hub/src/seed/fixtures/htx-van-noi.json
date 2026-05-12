@@ -1,0 +1,65 @@
+{
+  "producerEmail": "htx-vannoi@demo.qrbc.local",
+  "project": {
+    "cooperativeName": "HTX Vân Nội",
+    "vegetableType": "rau muống",
+    "cultivationLocation": {
+      "address": "Vân Nội, Đông Anh, Hà Nội",
+      "province": "Hà Nội",
+      "coordinates": { "lat": 21.1372, "lng": 105.8225 }
+    },
+    "startDate": "2026-01-01T00:00:00.000Z",
+    "harvestDate": "2026-04-01T00:00:00.000Z",
+    "cultivationArea": 1500,
+    "expectedOutput": 800,
+    "description": "Rau muống thuỷ canh đạt chuẩn VietGAP, vụ xuân 2026."
+  },
+  "activities": [
+    {
+      "type": "land_preparation",
+      "activityDate": "2025-12-20T00:00:00.000Z",
+      "name": "Chuẩn bị giàn thuỷ canh",
+      "description": "Vệ sinh, lắp đặt hệ thống NFT, kiểm tra bơm nước.",
+      "materials": ["ống PVC", "máy bơm", "nước sạch"]
+    },
+    {
+      "type": "planting",
+      "activityDate": "2026-01-05T00:00:00.000Z",
+      "name": "Gieo hạt giống VietGAP",
+      "description": "Lứa đầu vụ xuân, mật độ 200 cây/m².",
+      "materials": ["hạt giống VietGAP", "khoáng chất hỗn hợp A+B"]
+    },
+    {
+      "type": "fertilizing",
+      "activityDate": "2026-01-25T00:00:00.000Z",
+      "name": "Bón thúc lần 1",
+      "description": "Pha dinh dưỡng theo công thức 1:200, đo EC = 1.6 mS/cm."
+    },
+    {
+      "type": "pest_control",
+      "activityDate": "2026-02-15T00:00:00.000Z",
+      "name": "Kiểm tra sâu bệnh",
+      "description": "Không phát hiện sâu hại; sử dụng bẫy dính vàng phòng ngừa.",
+      "materials": ["bẫy dính vàng"]
+    },
+    {
+      "type": "harvesting",
+      "activityDate": "2026-03-30T00:00:00.000Z",
+      "name": "Thu hoạch lứa đầu",
+      "description": "Cắt tay, đóng gói tại ruộng."
+    }
+  ],
+  "certifications": [
+    {
+      "name": "VietGAP",
+      "issuer": "Bộ Nông nghiệp và Phát triển Nông thôn",
+      "issueDate": "2025-08-01T00:00:00.000Z",
+      "expiryDate": "2028-08-01T00:00:00.000Z"
+    }
+  ],
+  "imageUrls": [
+    "ipfs://bamockseed-htxvannoi-1",
+    "ipfs://bamockseed-htxvannoi-2",
+    "ipfs://bamockseed-htxvannoi-3"
+  ]
+}

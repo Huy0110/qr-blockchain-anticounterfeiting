@@ -1,0 +1,142 @@
+name: contracts-ci
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'contracts/**'
+      - 'packages/shared/**'
+      - '.github/workflows/contracts-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'contracts/**'
+      - 'packages/shared/**'
+      - '.github/workflows/contracts-ci.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: contracts-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  contracts:
+    name: forge + hardhat + slither
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.7.0
+
+      - name: Cache foundry artifacts
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.foundry/cache
+            contracts/cache
+            contracts/out
+          key: foundry-${{ runner.os }}-${{ hashFiles('contracts/foundry.toml', 'contracts/src/**/*.sol') }}
+          restore-keys: |
+            foundry-${{ runner.os }}-
+
+      - name: Install Node deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Solhint (lint)
+        working-directory: contracts
+        run: pnpm lint
+
+      - name: forge build
+        working-directory: contracts
+        # --build-info emits the hardhat-compatible compilation
+        # artifact at out/build-info/<hash>.json. Slither's
+        # `ignore-compile: true` mode reads these to skip
+        # recompilation; without the flag Slither fails with
+        # KeyError: 'output' in crytic_compile/platform/hardhat.py.
+        run: forge build --build-info
+
+      - name: forge test
+        working-directory: contracts
+        run: forge test -vvv
+
+      - name: forge coverage (≥ 90% gate, AC-SA-9)
+        working-directory: contracts
+        run: |
+          # Exclude script/ from the coverage gate. The 90% target
+          # applies to the contract under audit (src/ProductRegistry.sol)
+          # — Deploy.s.sol + Verify.s.sol are operational glue, not
+          # paper-claim-bearing surface.
+          forge coverage --report summary --report lcov --no-match-coverage 'script/'
+          node ../scripts/check-coverage.cjs lcov.info 90
+
+      - name: hardhat compile (cross-toolchain check, ADR-001)
+        run: pnpm --filter @qr-bc/contracts exec hardhat compile
+
+      # contracts/test/hardhat/HashSidCrossCheck.spec.ts imports
+      # @qr-bc/shared (cross-checks hashSid() against the SHA-256
+      # precompile). Build shared/dist before the hardhat test runs
+      # so the workspace import resolves at runtime.
+      - name: Build @qr-bc/shared (needed by HashSidCrossCheck)
+        run: pnpm --filter @qr-bc/shared build
+
+      - name: hardhat-foundry bytecode-cross-check
+        working-directory: contracts
+        # hardhat picks up `paths.tests: 'test/hardhat'` from
+        # hardhat.config.ts. Passing the directory as an arg makes
+        # mocha try to `require()` it as a file → MODULE_NOT_FOUND.
+        run: pnpm exec hardhat test
+
+      - name: gas snapshot (drift > 5% fails)
+        working-directory: contracts
+        # .gas-snapshot is intentionally scoped to the 7 GasSnapshotsTest
+        # functions (the paper-relevant gas claims). Without
+        # --match-contract, forge snapshot --check walks every test and
+        # complains "No matching snapshot entry found" for the fuzz +
+        # invariant + unit tests we never measured.
+        run: forge snapshot --check --tolerance 5 --match-contract GasSnapshotsTest
+
+      - name: Slither (AC-SA-7, --fail-on high)
+        uses: crytic/slither-action@v0.4.0
+        with:
+          target: contracts
+          # The `--fail-on` flag is implemented by the action's own
+          # `fail-on:` input below; passing it again inside slither-args
+          # reaches the slither CLI directly, which does not accept it
+          # ("unrecognized arguments: --fail-on high").
+          slither-args: --config-file contracts/slither.config.json
+          fail-on: high
+          # slither-action's default auto-compile runs `npm i` inside
+          # the target dir, which trips on pnpm's `workspace:*` deps.
+          # forge build already ran earlier in this job, so the
+          # artifacts at contracts/out/ are ready — tell slither-action
+          # to skip compilation and reuse them.
+          ignore-compile: true
+
+      - name: Upload coverage to Codecov
+        if: always()
+        uses: codecov/codecov-action@v4
+        with:
+          files: contracts/lcov.info
+          flags: contracts
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}

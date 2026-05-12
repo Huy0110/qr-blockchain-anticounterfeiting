@@ -1,0 +1,12 @@
+node_modules/
+dist/
+out/
+.next/
+cache/
+broadcast/
+coverage/
+pnpm-lock.yaml
+contracts/lib/
+contracts/out/
+contracts/cache/
+docs/tasks/progress.md

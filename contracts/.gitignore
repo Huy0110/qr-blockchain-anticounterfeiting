@@ -1,0 +1,12 @@
+cache/
+cache_hardhat/
+out/
+broadcast/
+artifacts/
+typechain-types/
+node_modules/
+.env
+.env.*
+!.env.example
+lcov.info
+slither-report.json

@@ -1,0 +1,14 @@
+node_modules/
+dist/
+out/
+.next/
+cache/
+broadcast/
+coverage/
+contracts/lib/
+contracts/out/
+contracts/cache/
+*.config.js
+*.config.cjs
+*.config.mjs
+*.config.ts

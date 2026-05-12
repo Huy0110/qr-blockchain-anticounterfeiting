@@ -1,0 +1,79 @@
+{
+  "app": {
+    "name": "Truy xuất nông sản",
+    "tagline": "Xác thực bằng blockchain",
+    "footer": "Mã nguồn mở, kiểm tra được, không thay đổi."
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "scanner": "Quét mã",
+    "about": "Giới thiệu",
+    "language": "Ngôn ngữ"
+  },
+  "landing": {
+    "title": "Quét QR để truy xuất sản phẩm",
+    "subtitle": "Mỗi sản phẩm có một mã định danh bí mật được ghi trên blockchain. Mã chỉ dùng được một lần.",
+    "scanCta": "Mở camera quét",
+    "pasteCta": "Hoặc dán URL"
+  },
+  "publicScan": {
+    "title": "Thông tin lô hàng",
+    "cooperative": "Hợp tác xã",
+    "vegetable": "Loại rau",
+    "location": "Khu vực",
+    "startDate": "Bắt đầu vụ",
+    "harvestDate": "Thu hoạch",
+    "area": "Diện tích (m²)",
+    "expectedOutput": "Sản lượng dự kiến (kg)",
+    "description": "Mô tả",
+    "activitiesTitle": "Nhật ký canh tác",
+    "certificationsTitle": "Chứng nhận",
+    "imagesTitle": "Hình ảnh",
+    "mapTitle": "Vị trí trên bản đồ",
+    "noActivities": "Chưa có nhật ký",
+    "noCerts": "Chưa có chứng nhận",
+    "unknownProject": "Không tìm thấy dự án",
+    "unknownProjectHint": "Kiểm tra lại liên kết hoặc sử dụng máy ảnh để quét lại mã.",
+    "loading": "Đang tải dữ liệu..."
+  },
+  "privateScan": {
+    "verifyingTitle": "Đang kiểm tra mã",
+    "stageVerifying": "Bước 1: Tra cứu trên chuỗi",
+    "stageSubmitting": "Bước 2: Gửi giao dịch xác thực",
+    "stageConfirming": "Bước 3: Chờ xác nhận",
+    "authenticTitle": "✓ HÀNG THẬT",
+    "authenticBody": "Sản phẩm vừa được xác thực thành công. Mã định danh đã được ghi nhận trên blockchain và không thể tái sử dụng.",
+    "alreadyVerifiedTitle": "✓ Đã xác thực trước đó",
+    "alreadyVerifiedBody": "Mã này đã được quét trước đây. Nếu bạn nhận được sản phẩm còn nguyên đai, có thể có rủi ro làm giả.",
+    "counterfeitTitle": "✗ KHÔNG HỢP LỆ",
+    "counterfeitBody": "Không tìm thấy mã định danh này trên blockchain. Sản phẩm có thể là hàng giả.",
+    "txHashLabel": "Mã giao dịch",
+    "viewOnExplorer": "Xem trên Polygonscan",
+    "verifiedAtLabel": "Thời điểm xác thực",
+    "previousVerifiedAt": "Lần xác thực trước",
+    "reportLink": "Báo cáo nghi ngờ"
+  },
+  "scanner": {
+    "title": "Quét mã QR",
+    "permissionPrompt": "Vui lòng cho phép truy cập máy ảnh để quét mã.",
+    "permissionDenied": "Truy cập máy ảnh bị từ chối. Hãy bật quyền máy ảnh trong cài đặt trình duyệt.",
+    "noCamera": "Thiết bị này không có máy ảnh.",
+    "pasteFallbackTitle": "Hoặc dán URL từ QR",
+    "pasteFallbackPlaceholder": "https://...",
+    "pasteFallbackCta": "Mở liên kết",
+    "startCamera": "Bật máy ảnh"
+  },
+  "about": {
+    "title": "Về dự án",
+    "intro": "Hệ thống chống hàng giả cho nông sản dùng blockchain Polygon và mã QR kép.",
+    "repoLabel": "Mã nguồn",
+    "doiLabel": "DOI bài báo",
+    "doiPending": "Đang chờ Zenodo",
+    "buildCidLabel": "CID bản dựng",
+    "buildCidPending": "Chưa pin"
+  },
+  "errors": {
+    "network": "Không kết nối được máy chủ",
+    "retry": "Thử lại"
+  }
+}

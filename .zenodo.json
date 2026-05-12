@@ -1,0 +1,26 @@
+{
+  "title": "qr-blockchain-anticounterfeiting: Reference Implementation for Dual-QR Blockchain Authentication",
+  "description": "Source code and reproducibility scripts for the paper 'A Dual-QR Blockchain-Based Authentication Mechanism for Agricultural Anti-Counterfeiting' (Frontiers in Blockchain, 2026).",
+  "creators": [
+    {
+      "name": "Pham, Duc Huy",
+      "affiliation": "Hanoi University of Science and Technology"
+    },
+    {
+      "name": "Trinh, Tuan-Dat",
+      "affiliation": "Hanoi University of Science and Technology"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "blockchain",
+    "anti-counterfeiting",
+    "QR code",
+    "smart contract",
+    "agriculture",
+    "Polygon",
+    "supply chain"
+  ],
+  "upload_type": "software",
+  "access_right": "open"
+}
