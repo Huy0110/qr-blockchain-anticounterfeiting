@@ -116,7 +116,7 @@ jobs:
         run: forge snapshot --check --tolerance 5 --match-contract GasSnapshotsTest
 
       - name: Slither (AC-SA-7, --fail-on high)
-        uses: crytic/slither-action@v0.4.0
+        uses: crytic/slither-action@v0.4.2
         with:
           target: contracts
           # The `--fail-on` flag is implemented by the action's own
