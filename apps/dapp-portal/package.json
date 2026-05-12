@@ -24,7 +24,7 @@
     "clsx": "^2.1.1",
     "html5-qrcode": "^2.3.8",
     "leaflet": "^1.9.4",
-    "lucide-react": "^0.460.0",
+    "lucide-react": "^1.14.0",
     "next": "^14.2.18",
     "next-intl": "^3.25.0",
     "react": "^18.3.1",
