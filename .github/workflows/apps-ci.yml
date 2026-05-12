@@ -166,7 +166,7 @@ jobs:
       - name: Run Playwright
         run: pnpm --filter @qr-bc/dapp-portal exec playwright test
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: dapp-playwright-report
@@ -214,7 +214,7 @@ jobs:
           NEXTAUTH_URL: http://localhost:3001
           NEXT_PUBLIC_HUB_BASE_URL: http://localhost:3000/api/v1
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: mgmt-playwright-report
