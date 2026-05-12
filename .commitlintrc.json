@@ -1,0 +1,31 @@
+{
+  "extends": ["@commitlint/config-conventional"],
+  "rules": {
+    "scope-enum": [
+      2,
+      "always",
+      [
+        "bootstrap",
+        "contracts",
+        "shared",
+        "hub",
+        "dapp",
+        "mgmt",
+        "experiments",
+        "docker",
+        "ci",
+        "docs",
+        "branding",
+        "seed",
+        "release",
+        "progress",
+        "review",
+        "deps",
+        "config"
+      ]
+    ],
+    "scope-empty": [2, "never"],
+    "subject-case": [0],
+    "header-max-length": [2, "always", 100]
+  }
+}

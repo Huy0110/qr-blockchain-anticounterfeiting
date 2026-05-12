@@ -1,0 +1,114 @@
+name: release
+
+# Triggered by an annotated tag matching v*.*.*. Builds the dApp static
+# export, pins it to Pinata (sandbox for *-test tags, production
+# otherwise), creates a GitHub Release with the CID + CHANGELOG
+# snippet in the notes. Zenodo's GitHub integration fires on every
+# release with a release that has a CITATION.cff (configured in
+# Phase 10 / T-045).
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+      - 'v*.*.*-*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: build + pin + GitHub Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Build dApp static export
+        run: |
+          pnpm --filter @qr-bc/shared build
+          pnpm --filter @qr-bc/dapp-portal build
+
+      - name: Pin to Pinata (sandbox for -test tags, prod otherwise)
+        id: pinata
+        env:
+          IS_TEST_TAG: ${{ contains(github.ref_name, '-test') }}
+          PINATA_JWT: ${{ secrets.PINATA_JWT }}
+          PINATA_JWT_SANDBOX: ${{ secrets.PINATA_JWT_SANDBOX }}
+        run: |
+          if [ "$IS_TEST_TAG" = "true" ]; then
+            export PINATA_JWT="$PINATA_JWT_SANDBOX"
+            echo "Using Pinata sandbox JWT for ${{ github.ref_name }}"
+          fi
+          if [ -z "$PINATA_JWT" ]; then
+            echo "::warning::No PINATA_JWT secret configured; skipping pin."
+            echo "cid=skipped" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          OUTPUT=$(apps/dapp-portal/ipfs-deploy.sh)
+          echo "$OUTPUT"
+          # Anchor on the stable RELEASE_CID=<cid> line emitted by
+          # ipfs-deploy.sh on success; the human-readable lines above
+          # it can change without breaking this parser.
+          CID=$(echo "$OUTPUT" | grep -E '^RELEASE_CID=' | tail -1 | cut -d= -f2)
+          if [ -z "$CID" ]; then
+            echo "::error::Pinata pin succeeded but no RELEASE_CID line found in output"
+            exit 1
+          fi
+          echo "cid=$CID" >> "$GITHUB_OUTPUT"
+
+      - name: Extract CHANGELOG entry for this tag
+        id: changelog
+        run: |
+          TAG="${{ github.ref_name }}"
+          if [ ! -f CHANGELOG.md ]; then
+            echo "::warning::No CHANGELOG.md; release notes will be terse."
+            echo "body<<EOF" >> "$GITHUB_OUTPUT"
+            echo "Release $TAG" >> "$GITHUB_OUTPUT"
+            echo "EOF" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # Extract the section between this tag's ## heading and the next ## heading.
+          BODY=$(awk -v tag="$TAG" '
+            $0 ~ "^## \\[?"tag {flag=1; next}
+            flag && /^## / {exit}
+            flag {print}
+          ' CHANGELOG.md)
+          if [ -z "$BODY" ]; then
+            BODY="Release $TAG (no CHANGELOG entry found)"
+          fi
+          {
+            echo "body<<EOF"
+            echo "$BODY"
+            echo ""
+            echo "## Artifacts"
+            echo ""
+            echo "- **IPFS CID:** \`${{ steps.pinata.outputs.cid }}\`"
+            echo "- **Gateway URL:** https://gateway.pinata.cloud/ipfs/${{ steps.pinata.outputs.cid }}/vi/"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ github.ref_name }}
+          body: ${{ steps.changelog.outputs.body }}
+          # Mark `-test` tags as pre-release; real `vX.Y.Z` tags ship as stable.
+          prerelease: ${{ contains(github.ref_name, '-test') }}
+          fail_on_unmatched_files: false

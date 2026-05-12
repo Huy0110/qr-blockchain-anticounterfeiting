@@ -1,0 +1,183 @@
+{
+  "app": {
+    "name": "Cổng quản lý sản xuất",
+    "tagline": "Quản lý dự án, lô hàng và xác thực",
+    "footer": "Mã nguồn mở, không thể giả mạo."
+  },
+  "nav": {
+    "dashboard": "Bảng điều khiển",
+    "projects": "Dự án",
+    "logout": "Đăng xuất",
+    "language": "Ngôn ngữ",
+    "darkMode": "Chế độ tối"
+  },
+  "auth": {
+    "loginTitle": "Đăng nhập",
+    "registerTitle": "Đăng ký nhà sản xuất",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "submitLogin": "Đăng nhập",
+    "submitRegister": "Tạo tài khoản",
+    "switchToRegister": "Chưa có tài khoản? Đăng ký",
+    "switchToLogin": "Đã có tài khoản? Đăng nhập",
+    "errorInvalidCredentials": "Email hoặc mật khẩu không đúng",
+    "errorServer": "Không thể kết nối máy chủ. Vui lòng thử lại.",
+    "errorRegister": "Đăng ký thất bại. Email có thể đã tồn tại.",
+    "registerSuccess": "Đăng ký thành công, đang chuyển vào hệ thống..."
+  },
+  "dashboard": {
+    "title": "Tổng quan",
+    "welcome": "Chào mừng, {email}",
+    "totalProjects": "Tổng số dự án",
+    "harvestingProjects": "Đang thu hoạch",
+    "finishedProjects": "Đã hoàn thành",
+    "recentProjects": "Dự án gần đây",
+    "viewAll": "Xem tất cả",
+    "empty": "Bạn chưa có dự án nào. Hãy tạo dự án đầu tiên."
+  },
+  "projects": {
+    "listTitle": "Danh sách dự án",
+    "newCta": "Tạo dự án mới",
+    "search": "Tìm kiếm...",
+    "tableCols": {
+      "name": "Tên HTX",
+      "vegetable": "Loại nông sản",
+      "status": "Trạng thái",
+      "createdAt": "Ngày tạo",
+      "actions": "Thao tác"
+    },
+    "status": {
+      "in_progress": "Đang trồng",
+      "harvesting": "Đang thu hoạch",
+      "finished": "Hoàn thành"
+    },
+    "newTitle": "Tạo dự án mới",
+    "editTitle": "Chỉnh sửa dự án",
+    "fields": {
+      "cooperativeName": "Tên hợp tác xã",
+      "vegetableType": "Loại nông sản",
+      "address": "Địa chỉ",
+      "province": "Tỉnh/Thành",
+      "lat": "Vĩ độ",
+      "lng": "Kinh độ",
+      "startDate": "Ngày bắt đầu vụ",
+      "harvestDate": "Ngày thu hoạch dự kiến",
+      "cultivationArea": "Diện tích (m²)",
+      "expectedOutput": "Sản lượng dự kiến (kg)",
+      "description": "Mô tả",
+      "status": "Trạng thái"
+    },
+    "validation": {
+      "required": "Trường này không được để trống",
+      "minLength": "Tối thiểu {min} ký tự",
+      "invalidDate": "Định dạng ngày không hợp lệ",
+      "harvestAfterStart": "Ngày thu hoạch phải sau ngày bắt đầu",
+      "positive": "Phải là số dương"
+    },
+    "saveCta": "Lưu",
+    "cancelCta": "Huỷ",
+    "deleteCta": "Xoá dự án",
+    "deleteConfirmTitle": "Xác nhận xoá",
+    "deleteConfirmBody": "Hành động này không thể hoàn tác. Dự án sẽ bị đánh dấu đã xoá.",
+    "createSuccess": "Đã tạo dự án và đăng ký lên blockchain",
+    "createFailure": "Không thể tạo dự án",
+    "updateSuccess": "Đã lưu thay đổi",
+    "deleteSuccess": "Đã xoá dự án",
+    "conflictTitle": "Xung đột chỉnh sửa",
+    "conflictBody": "Một người khác đã cập nhật dự án này. Hãy tải lại và thử lại."
+  },
+  "activities": {
+    "title": "Nhật ký canh tác",
+    "addCta": "Thêm hoạt động",
+    "fields": {
+      "type": "Loại hoạt động",
+      "name": "Tên",
+      "description": "Mô tả",
+      "activityDate": "Ngày thực hiện"
+    },
+    "types": {
+      "planting": "Gieo trồng",
+      "fertilizing": "Bón phân",
+      "watering": "Tưới nước",
+      "pesticide": "Phun thuốc",
+      "harvesting": "Thu hoạch",
+      "other": "Khác"
+    }
+  },
+  "certifications": {
+    "title": "Chứng nhận",
+    "addCta": "Tải lên chứng nhận",
+    "fields": {
+      "name": "Tên chứng nhận",
+      "issuer": "Đơn vị cấp",
+      "issueDate": "Ngày cấp",
+      "expiryDate": "Ngày hết hạn",
+      "file": "Tệp PDF"
+    },
+    "uploadProgress": "Đang tải {percent}%",
+    "uploadSuccess": "Đã tải lên IPFS",
+    "uploadFailure": "Tải lên thất bại"
+  },
+  "images": {
+    "title": "Hình ảnh sản phẩm",
+    "addCta": "Tải hình ảnh",
+    "uploadProgress": "Đang tải {done}/{total}",
+    "cancelCta": "Huỷ",
+    "mimeError": "Tệp này không phải là ảnh hợp lệ"
+  },
+  "batches": {
+    "listTitle": "Lịch sử tạo lô QR",
+    "newCta": "Tạo lô QR mới",
+    "wizard": {
+      "step1Title": "Chọn dự án",
+      "step2Title": "Số lượng QR",
+      "step2Help": "Số lượng QR cần tạo cho lô hàng này.",
+      "step3Title": "Xem chi phí dự kiến",
+      "step3Body": "Lô {n} mã sẽ tốn ~{gas} Gwei và ~{matic} MATIC. Số dư hiện tại: {balance} MATIC.",
+      "step3Insufficient": "Số dư không đủ. Hãy nạp ví tại {faucet}.",
+      "step4Title": "Đang tạo lô...",
+      "step4Submitting": "Đang gửi giao dịch...",
+      "step4Confirming": "Đang chờ xác nhận trên blockchain...",
+      "step4Generating": "Đang tạo file ZIP..."
+    },
+    "successToast": "Đã tạo {n} mã QR. Tx: {txHash}",
+    "downloadCta": "Tải lại file ZIP",
+    "fields": {
+      "count": "Số lượng",
+      "createdAt": "Ngày tạo",
+      "status": "Trạng thái",
+      "txHash": "Mã giao dịch"
+    },
+    "status": {
+      "pending": "Đang chờ",
+      "confirmed": "Đã xác nhận",
+      "failed": "Thất bại"
+    }
+  },
+  "verifications": {
+    "title": "Phân tích xác thực",
+    "summary": "Tổng quan 30 ngày qua",
+    "totals": {
+      "authentic": "Xác thực thành công",
+      "alreadyVerified": "Đã xác thực trước",
+      "counterfeit": "Nghi giả"
+    },
+    "dailyChart": "Theo ngày (30 ngày)",
+    "outcomeDonut": "Tỷ lệ kết quả",
+    "recentTitle": "Lượt quét gần đây",
+    "recentTableCols": {
+      "outcome": "Kết quả",
+      "verifiedAt": "Thời gian",
+      "txHash": "Tx"
+    },
+    "outcomeAuthentic": "Hợp lệ",
+    "outcomeAlreadyVerified": "Đã xác thực",
+    "outcomeCounterfeit": "Nghi giả"
+  },
+  "errors": {
+    "network": "Không kết nối được máy chủ",
+    "unauthorized": "Phiên làm việc đã hết hạn. Hãy đăng nhập lại.",
+    "retry": "Thử lại",
+    "generic": "Đã xảy ra lỗi. Vui lòng thử lại."
+  }
+}

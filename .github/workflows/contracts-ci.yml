@@ -1,0 +1,110 @@
+name: contracts-ci
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'contracts/**'
+      - 'packages/shared/**'
+      - '.github/workflows/contracts-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'contracts/**'
+      - 'packages/shared/**'
+      - '.github/workflows/contracts-ci.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: contracts-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  contracts:
+    name: forge + hardhat + slither
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.7.0
+
+      - name: Cache foundry artifacts
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.foundry/cache
+            contracts/cache
+            contracts/out
+          key: foundry-${{ runner.os }}-${{ hashFiles('contracts/foundry.toml', 'contracts/src/**/*.sol') }}
+          restore-keys: |
+            foundry-${{ runner.os }}-
+
+      - name: Install Node deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Solhint (lint)
+        working-directory: contracts
+        run: pnpm lint
+
+      - name: forge build
+        working-directory: contracts
+        run: forge build
+
+      - name: forge test
+        working-directory: contracts
+        run: forge test -vvv
+
+      - name: forge coverage (≥ 90% gate, AC-SA-9)
+        working-directory: contracts
+        run: |
+          forge coverage --report summary --report lcov
+          # Parse line coverage from lcov.info; gate at 90%.
+          node ../scripts/check-coverage.cjs lcov.info 90
+
+      - name: hardhat compile (cross-toolchain check, ADR-001)
+        run: pnpm --filter @qr-bc/contracts exec hardhat compile
+
+      - name: hardhat-foundry bytecode-cross-check
+        working-directory: contracts
+        run: pnpm exec hardhat test test/hardhat
+
+      - name: gas snapshot (drift > 5% fails)
+        working-directory: contracts
+        run: forge snapshot --check --tolerance 5
+
+      - name: Slither (AC-SA-7, --fail-on high)
+        uses: crytic/slither-action@v0.4.0
+        with:
+          target: contracts
+          slither-args: --config-file contracts/slither.config.json --fail-on high
+          fail-on: high
+
+      - name: Upload coverage to Codecov
+        if: always()
+        uses: codecov/codecov-action@v4
+        with:
+          files: contracts/lcov.info
+          flags: contracts
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}

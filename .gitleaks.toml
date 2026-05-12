@@ -1,0 +1,21 @@
+title = "QR-BC gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Test fixtures, example envs, and well-known public dev keys"
+paths = [
+  '''(.*/)?\.env\.example$''',
+  '''(.*/)?\.env\.testnet\.example$''',
+  '''(.*/)?\.env\.production\.example$''',
+  '''(.*/)?fixtures/.*''',
+  '''(.*/)?test/.*''',
+  '''(.*/)?docs/.*''',
+  '''pnpm-lock\.yaml$''',
+  # Hardhat's account #0 private key is documented in the Hardhat
+  # README and is hardcoded for the local in-memory chain. Allow it
+  # in experiment + contract code where we explicitly call it out.
+  '''(.*/)?experiments/lib/network\.ts$''',
+  '''(.*/)?contracts/.*'''
+]

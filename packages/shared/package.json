@@ -1,0 +1,51 @@
+{
+  "name": "@qr-bc/shared",
+  "version": "0.0.0-dev",
+  "description": "Shared types, ABI, and hashing helpers for the QR-coded blockchain anti-counterfeiting monorepo",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./schemas": {
+      "types": "./dist/schemas/index.d.ts",
+      "import": "./dist/schemas/index.js",
+      "require": "./dist/schemas/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "build:abi": "tsx scripts/build-abi.ts",
+    "check:abi": "tsx scripts/check-abi-up-to-date.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:types": "tsd",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@noble/hashes": "^1.5.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.10",
+    "ethers": "^6.13.4",
+    "tsd": "^0.31.2",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
+  },
+  "tsd": {
+    "directory": "test"
+  }
+}

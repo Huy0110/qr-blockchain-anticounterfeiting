@@ -1,0 +1,7 @@
+GasSnapshotsTest:test_gas_projectExists() (gas: 7723)
+GasSnapshotsTest:test_gas_redeemProduct() (gas: 67858)
+GasSnapshotsTest:test_gas_registerBatch_N1() (gas: 38357)
+GasSnapshotsTest:test_gas_registerBatch_N10() (gas: 250836)
+GasSnapshotsTest:test_gas_registerBatch_N100_under30M() (gas: 2377127)
+GasSnapshotsTest:test_gas_registerProject() (gas: 34455)
+GasSnapshotsTest:test_gas_verifyProduct() (gas: 10366)

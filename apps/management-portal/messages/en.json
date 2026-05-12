@@ -1,0 +1,183 @@
+{
+  "app": {
+    "name": "Producer Management Portal",
+    "tagline": "Manage projects, batches, and verification analytics",
+    "footer": "Open source. Tamper-evident."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "logout": "Sign out",
+    "language": "Language",
+    "darkMode": "Dark mode"
+  },
+  "auth": {
+    "loginTitle": "Sign in",
+    "registerTitle": "Register as a producer",
+    "email": "Email",
+    "password": "Password",
+    "submitLogin": "Sign in",
+    "submitRegister": "Create account",
+    "switchToRegister": "No account? Register",
+    "switchToLogin": "Already have an account? Sign in",
+    "errorInvalidCredentials": "Email or password is incorrect",
+    "errorServer": "Cannot reach the server. Try again.",
+    "errorRegister": "Registration failed. Email may already be in use.",
+    "registerSuccess": "Registration successful. Redirecting…"
+  },
+  "dashboard": {
+    "title": "Overview",
+    "welcome": "Welcome, {email}",
+    "totalProjects": "Total projects",
+    "harvestingProjects": "Harvesting",
+    "finishedProjects": "Finished",
+    "recentProjects": "Recent projects",
+    "viewAll": "View all",
+    "empty": "You have no projects yet. Create your first one."
+  },
+  "projects": {
+    "listTitle": "Projects",
+    "newCta": "New project",
+    "search": "Search…",
+    "tableCols": {
+      "name": "Cooperative",
+      "vegetable": "Crop",
+      "status": "Status",
+      "createdAt": "Created",
+      "actions": "Actions"
+    },
+    "status": {
+      "in_progress": "In progress",
+      "harvesting": "Harvesting",
+      "finished": "Finished"
+    },
+    "newTitle": "New project",
+    "editTitle": "Edit project",
+    "fields": {
+      "cooperativeName": "Cooperative name",
+      "vegetableType": "Crop",
+      "address": "Address",
+      "province": "Province",
+      "lat": "Latitude",
+      "lng": "Longitude",
+      "startDate": "Season start",
+      "harvestDate": "Expected harvest",
+      "cultivationArea": "Area (m²)",
+      "expectedOutput": "Expected output (kg)",
+      "description": "Description",
+      "status": "Status"
+    },
+    "validation": {
+      "required": "Required",
+      "minLength": "At least {min} characters",
+      "invalidDate": "Invalid date format",
+      "harvestAfterStart": "Harvest date must be after season start",
+      "positive": "Must be positive"
+    },
+    "saveCta": "Save",
+    "cancelCta": "Cancel",
+    "deleteCta": "Delete project",
+    "deleteConfirmTitle": "Confirm delete",
+    "deleteConfirmBody": "This cannot be undone. The project will be marked deleted.",
+    "createSuccess": "Project created and registered on-chain",
+    "createFailure": "Could not create project",
+    "updateSuccess": "Saved",
+    "deleteSuccess": "Project deleted",
+    "conflictTitle": "Edit conflict",
+    "conflictBody": "Another session updated this project. Reload and try again."
+  },
+  "activities": {
+    "title": "Cultivation log",
+    "addCta": "Add activity",
+    "fields": {
+      "type": "Type",
+      "name": "Name",
+      "description": "Description",
+      "activityDate": "Date"
+    },
+    "types": {
+      "planting": "Planting",
+      "fertilizing": "Fertilizing",
+      "watering": "Watering",
+      "pesticide": "Pesticide",
+      "harvesting": "Harvesting",
+      "other": "Other"
+    }
+  },
+  "certifications": {
+    "title": "Certifications",
+    "addCta": "Upload certification",
+    "fields": {
+      "name": "Name",
+      "issuer": "Issuer",
+      "issueDate": "Issued",
+      "expiryDate": "Expires",
+      "file": "PDF file"
+    },
+    "uploadProgress": "Uploading {percent}%",
+    "uploadSuccess": "Pinned to IPFS",
+    "uploadFailure": "Upload failed"
+  },
+  "images": {
+    "title": "Product images",
+    "addCta": "Upload images",
+    "uploadProgress": "Uploading {done}/{total}",
+    "cancelCta": "Cancel",
+    "mimeError": "This file is not a valid image"
+  },
+  "batches": {
+    "listTitle": "Past batches",
+    "newCta": "New batch",
+    "wizard": {
+      "step1Title": "Select project",
+      "step2Title": "Number of QR codes",
+      "step2Help": "How many QR codes should this batch include?",
+      "step3Title": "Review estimated cost",
+      "step3Body": "A batch of {n} codes will cost ~{gas} Gwei and ~{matic} MATIC. Wallet balance: {balance} MATIC.",
+      "step3Insufficient": "Insufficient balance. Top up via the {faucet}.",
+      "step4Title": "Generating batch…",
+      "step4Submitting": "Submitting transaction…",
+      "step4Confirming": "Waiting for blockchain confirmation…",
+      "step4Generating": "Building ZIP…"
+    },
+    "successToast": "Generated {n} QR codes. Tx: {txHash}",
+    "downloadCta": "Re-download ZIP",
+    "fields": {
+      "count": "Count",
+      "createdAt": "Created",
+      "status": "Status",
+      "txHash": "Tx"
+    },
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "failed": "Failed"
+    }
+  },
+  "verifications": {
+    "title": "Verification analytics",
+    "summary": "Last 30 days",
+    "totals": {
+      "authentic": "Authentic",
+      "alreadyVerified": "Already verified",
+      "counterfeit": "Counterfeit"
+    },
+    "dailyChart": "Daily (30 days)",
+    "outcomeDonut": "Outcome split",
+    "recentTitle": "Recent scans",
+    "recentTableCols": {
+      "outcome": "Outcome",
+      "verifiedAt": "When",
+      "txHash": "Tx"
+    },
+    "outcomeAuthentic": "Authentic",
+    "outcomeAlreadyVerified": "Already",
+    "outcomeCounterfeit": "Counterfeit"
+  },
+  "errors": {
+    "network": "Cannot reach the server",
+    "unauthorized": "Session expired. Please sign in again.",
+    "retry": "Retry",
+    "generic": "Something went wrong. Try again."
+  }
+}

@@ -1,0 +1,22 @@
+# Testnet override: skip the local hardhat + contracts-deployer and
+# point the hub at Polygon Amoy. Used by `docker compose -f
+# docker-compose.yml -f docker-compose.testnet.override.yml --profile
+# testnet up`.
+#
+# Required env (in .env or shell): AMOY_RPC_URL, CONTRACT_ADDRESS,
+# SYSTEM_WALLET_PRIVATE_KEY (must be funded on Amoy).
+
+services:
+  hardhat:
+    profiles: ['__disabled']
+  contracts-deployer:
+    profiles: ['__disabled']
+  coordination-hub:
+    depends_on:
+      mongo: { condition: service_healthy }
+      ipfs: { condition: service_healthy }
+    environment:
+      NETWORK: amoy
+      RPC_URL: ${AMOY_RPC_URL:?AMOY_RPC_URL is required for testnet profile}
+      CONTRACT_ADDRESS: ${CONTRACT_ADDRESS:?CONTRACT_ADDRESS is required for testnet profile}
+      SYSTEM_WALLET_PRIVATE_KEY: ${SYSTEM_WALLET_PRIVATE_KEY:?SYSTEM_WALLET_PRIVATE_KEY is required for testnet profile}

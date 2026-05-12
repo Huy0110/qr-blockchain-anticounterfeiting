@@ -1,0 +1,11 @@
+node_modules
+out
+cache
+cache_hardhat
+artifacts
+typechain-types
+broadcast
+.env
+.env.*
+!.env.example
+*.log

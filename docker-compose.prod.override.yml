@@ -1,0 +1,39 @@
+# Production override: hub only. Mongo + IPFS are externalised
+# (Atlas + Pinata); the hub talks to public Polygon mainnet.
+#
+# Required env: MONGO_URI (Atlas connection string), PINATA_JWT,
+# RPC_URL (Polygon mainnet), CONTRACT_ADDRESS, SYSTEM_WALLET_PRIVATE_KEY,
+# JWT_SECRET, REFRESH_SECRET, WALLET_ENCRYPTION_KEK, DAILY_SALT_SECRET.
+
+services:
+  mongo:
+    profiles: ['__disabled']
+  ipfs:
+    profiles: ['__disabled']
+  hardhat:
+    profiles: ['__disabled']
+  contracts-deployer:
+    profiles: ['__disabled']
+  management-portal:
+    profiles: ['__disabled']
+  dapp-portal:
+    profiles: ['__disabled']
+
+  coordination-hub:
+    restart: always
+    depends_on: !reset {}
+    environment:
+      NODE_ENV: production
+      LOG_LEVEL: info
+      EXPOSE_SWAGGER: 'false'
+      MONGO_URI: ${MONGO_URI:?MONGO_URI required for prod}
+      NETWORK: mainnet
+      RPC_URL: ${RPC_URL:?RPC_URL required for prod}
+      CONTRACT_ADDRESS: ${CONTRACT_ADDRESS:?CONTRACT_ADDRESS required for prod}
+      SYSTEM_WALLET_PRIVATE_KEY: ${SYSTEM_WALLET_PRIVATE_KEY:?SYSTEM_WALLET_PRIVATE_KEY required for prod}
+      IPFS_PROVIDER: pinata
+      PINATA_JWT: ${PINATA_JWT:?PINATA_JWT required for prod}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET required for prod}
+      REFRESH_SECRET: ${REFRESH_SECRET:?REFRESH_SECRET required for prod}
+      WALLET_ENCRYPTION_KEK: ${WALLET_ENCRYPTION_KEK:?WALLET_ENCRYPTION_KEK required for prod}
+      DAILY_SALT_SECRET: ${DAILY_SALT_SECRET:?DAILY_SALT_SECRET required for prod}

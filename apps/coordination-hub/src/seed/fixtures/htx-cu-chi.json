@@ -1,0 +1,64 @@
+{
+  "producerEmail": "htx-cuchi@demo.qrbc.local",
+  "project": {
+    "cooperativeName": "HTX Củ Chi",
+    "vegetableType": "rau dền",
+    "cultivationLocation": {
+      "address": "Tân Phú Trung, Củ Chi, TP. Hồ Chí Minh",
+      "province": "TP. Hồ Chí Minh",
+      "coordinates": { "lat": 10.9651, "lng": 106.4936 }
+    },
+    "startDate": "2026-03-01T00:00:00.000Z",
+    "harvestDate": "2026-06-01T00:00:00.000Z",
+    "cultivationArea": 1800,
+    "expectedOutput": 950,
+    "description": "Rau dền đỏ, trồng theo quy trình truy xuất nguồn gốc đầy đủ."
+  },
+  "activities": [
+    {
+      "type": "land_preparation",
+      "activityDate": "2026-02-25T00:00:00.000Z",
+      "name": "Lên luống cao + phủ bạt nilon đen",
+      "description": "Luống rộng 1.2 m, cao 25 cm, hạn chế cỏ dại."
+    },
+    {
+      "type": "planting",
+      "activityDate": "2026-03-05T00:00:00.000Z",
+      "name": "Gieo hạt rau dền đỏ",
+      "description": "Mật độ 25x20 cm.",
+      "materials": ["hạt rau dền đỏ Việt Nam"]
+    },
+    {
+      "type": "fertilizing",
+      "activityDate": "2026-03-25T00:00:00.000Z",
+      "name": "Bón thúc kali",
+      "description": "Tăng sắc đỏ thân lá, kali sulphate phun lá."
+    },
+    {
+      "type": "pest_control",
+      "activityDate": "2026-04-15T00:00:00.000Z",
+      "name": "Phun chế phẩm Neem",
+      "description": "Diệt rệp tự nhiên, tuân thủ thời gian cách ly 7 ngày.",
+      "materials": ["dầu Neem nguyên chất"]
+    },
+    {
+      "type": "harvesting",
+      "activityDate": "2026-05-30T00:00:00.000Z",
+      "name": "Thu hoạch lứa thứ nhất",
+      "description": "Bó 200 g/bó, đóng gói chân không."
+    }
+  ],
+  "certifications": [
+    {
+      "name": "VietGAP",
+      "issuer": "Trung tâm Khuyến nông TP.HCM",
+      "issueDate": "2025-04-10T00:00:00.000Z",
+      "expiryDate": "2028-04-10T00:00:00.000Z"
+    }
+  ],
+  "imageUrls": [
+    "ipfs://bamockseed-htxcuchi-1",
+    "ipfs://bamockseed-htxcuchi-2",
+    "ipfs://bamockseed-htxcuchi-3"
+  ]
+}

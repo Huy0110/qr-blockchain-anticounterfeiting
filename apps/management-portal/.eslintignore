@@ -1,0 +1,4 @@
+test/serve-static.cjs
+test/lighthouse.config.js
+out/
+.next/

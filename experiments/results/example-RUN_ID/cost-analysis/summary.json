@@ -1,0 +1,80 @@
+{
+  "experiment": "cost-analysis",
+  "reproduces": "Paper Table 4",
+  "runId": "example-RUN_ID",
+  "network": "amoy",
+  "trials": 5,
+  "gasPriceGwei": 30,
+  "maticUsd": 0.55,
+  "gasPriceTimestamp": "2026-04-01T00:00:00Z",
+  "note": "Sample committed for reviewer preview. Reproduce with `pnpm exp:cost-analysis --trials 5 --network amoy`.",
+  "perOp": {
+    "registerProject": {
+      "gasUsed": {
+        "n": 5,
+        "mean": 48230.4,
+        "stdDev": 215.8,
+        "min": 48010,
+        "max": 48495,
+        "median": 48220,
+        "ci95Low": 48041.2,
+        "ci95High": 48419.6
+      },
+      "usdCost": {
+        "n": 5,
+        "mean": 0.000795795,
+        "stdDev": 0.0000035607,
+        "min": 0.0007922145,
+        "max": 0.0008001675,
+        "median": 0.000795663,
+        "ci95Low": 0.000792692,
+        "ci95High": 0.000798898
+      }
+    },
+    "registerBatch": {
+      "gasUsed": {
+        "n": 5,
+        "mean": 51420.2,
+        "stdDev": 245.4,
+        "min": 51155,
+        "max": 51700,
+        "median": 51410,
+        "ci95Low": 51205.0,
+        "ci95High": 51635.4
+      },
+      "usdCost": {
+        "n": 5,
+        "mean": 0.000848433,
+        "stdDev": 0.0000040491,
+        "min": 0.000844058,
+        "max": 0.00085305,
+        "median": 0.000848265,
+        "ci95Low": 0.000844883,
+        "ci95High": 0.000851983
+      }
+    },
+    "redeemProduct": {
+      "gasUsed": {
+        "n": 5,
+        "mean": 49810.6,
+        "stdDev": 198.7,
+        "min": 49605,
+        "max": 50050,
+        "median": 49805,
+        "ci95Low": 49636.5,
+        "ci95High": 49984.7
+      },
+      "usdCost": {
+        "n": 5,
+        "mean": 0.000821875,
+        "stdDev": 0.0000032788,
+        "min": 0.000818483,
+        "max": 0.000825825,
+        "median": 0.000821783,
+        "ci95Low": 0.000819,
+        "ci95High": 0.00082475
+      }
+    }
+  },
+  "rawRowCount": 15
+}

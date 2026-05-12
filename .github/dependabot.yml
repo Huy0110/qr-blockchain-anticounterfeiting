@@ -1,0 +1,38 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: 'chore(deps)'
+
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: 'chore(deps)'
+    groups:
+      # Bundle related upgrades so one PR doesn't fan into ten.
+      nestjs:
+        patterns: ['@nestjs/*']
+      next:
+        patterns: ['next', 'next-*', '@next/*']
+      ethers:
+        patterns: ['ethers', '@noble/*']
+      radix-ui:
+        patterns: ['@radix-ui/*']
+      tanstack:
+        patterns: ['@tanstack/*']
+      mongoose:
+        patterns: ['mongoose', '@nestjs/mongoose']
+      tooling:
+        patterns:
+          ['vitest', '@vitest/*', 'playwright', '@playwright/*', 'eslint', 'eslint-*', 'prettier']
+    ignore:
+      # Lockstep with chart.js to avoid major-bump rebases.
+      - dependency-name: 'react-chartjs-2'
+        update-types: ['version-update:semver-major']

@@ -1,0 +1,8 @@
+{
+  "detectors_to_exclude": "naming-convention,solc-version,pragma,assembly",
+  "filter_paths": "lib,test,script,deploy,scripts,cache,out,artifacts,typechain-types,node_modules",
+  "exclude_low": true,
+  "exclude_informational": true,
+  "exclude_optimization": true,
+  "json": "slither-report.json"
+}

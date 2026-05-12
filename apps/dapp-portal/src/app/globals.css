@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    /* Darkened to clear WCAG AA 4.5:1 on white when paired with
+       --primary-foreground (white) — bg-primary buttons + nav badges. */
+    --primary: 142 71% 27%;
+    --primary-foreground: 0 0% 100%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 19% 35%;
+    --border: 214 32% 91%;
+  }
+
+  /* Dark-mode tokens were defined here previously, but the dApp's design
+     system is light-only (the badges/cards rely on light backgrounds for
+     contrast). When the OS reported dark, the brighter primary failed
+     WCAG AA against white text on bg-primary buttons. We declare a
+     light-only color-scheme to pin the rendering. */
+
+  html {
+    color-scheme: light;
+  }
+
+  html,
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+}
+
+@layer components {
+  .container-narrow {
+    @apply mx-auto max-w-3xl px-4 sm:px-6;
+  }
+}

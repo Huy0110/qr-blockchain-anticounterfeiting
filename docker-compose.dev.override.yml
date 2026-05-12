@@ -1,0 +1,52 @@
+# Dev override: mount the hub source tree into the running container
+# and run `start:dev` (nest --watch). Editing apps/coordination-hub/src
+# now restarts the hub inside the container, satisfying AC-DO-4.
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.override.yml up
+#
+# The dev image still uses the apps/coordination-hub Dockerfile but
+# overrides the runtime command. Source is mounted read-only on top
+# of the built `dist/` so volume restoration on `down` doesn't drop
+# build artefacts (the watch mode rebuilds on edit).
+
+services:
+  coordination-hub:
+    # Run from the builder stage (has tsx + nest CLI + full deps) so
+    # nest --watch can compile in place. The runtime stage is
+    # production-only and lacks devDependencies.
+    build:
+      target: builder
+    command: ['pnpm', '--filter', '@qr-bc/coordination-hub', 'start:dev']
+    environment:
+      NODE_ENV: development
+    volumes:
+      # Live-reload the hub: container watches host changes via nest's
+      # tsc-watch + restart. Other workspaces (shared/) require a
+      # rebuild via `pnpm --filter @qr-bc/shared build`.
+      - ./apps/coordination-hub/src:/repo/apps/coordination-hub/src
+      - ./apps/coordination-hub/test:/repo/apps/coordination-hub/test
+      - ./packages/shared/dist:/repo/packages/shared/dist:ro
+
+  management-portal:
+    build:
+      target: builder
+    command: ['pnpm', '--filter', '@qr-bc/management-portal', 'dev']
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ./apps/management-portal/src:/repo/apps/management-portal/src
+      - ./apps/management-portal/messages:/repo/apps/management-portal/messages
+
+  dapp-portal:
+    # Static-export apps don't have a hot-reload story inside the
+    # production runner — point at `next dev` instead so editing
+    # src/ rebuilds in-place.
+    build:
+      target: builder
+    command: ['pnpm', '--filter', '@qr-bc/dapp-portal', 'dev']
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ./apps/dapp-portal/src:/repo/apps/dapp-portal/src
+      - ./apps/dapp-portal/messages:/repo/apps/dapp-portal/messages

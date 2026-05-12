@@ -1,0 +1,203 @@
+# Local-stack orchestration. `make demo` brings the whole graph up.
+#
+# Image-size targets (set in T-036 DoD; verified manually with
+# `docker images --format '{{.Repository}}\t{{.Size}}'`):
+#   coordination-hub   < 500 MB
+#   management-portal  < 400 MB
+#   dapp-portal        < 400 MB
+#   contracts          < 800 MB (foundry + hardhat are heavy)
+#
+# Profiles:
+#   default   (no flag): mongo + ipfs + hardhat + deployer + hub + 2 portals
+#   testnet   (`--profile testnet`): skip hardhat + deployer; hub uses Amoy RPC
+#   prod      (`--profile prod`): hub only (mongo + ipfs externalized)
+
+name: qr-bc
+
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ['CMD', 'mongosh', '--quiet', '--eval', 'db.runCommand({ ping: 1 })']
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 5s
+    networks: [qr-bc-net]
+
+  ipfs:
+    image: ipfs/kubo:latest
+    restart: unless-stopped
+    ports:
+      - '5001:5001'
+      - '8080:8080'
+    volumes:
+      - ipfs-data:/data/ipfs
+    healthcheck:
+      # Kubo's RPC API requires POST; wget --post-data forces it.
+      test:
+        [
+          'CMD-SHELL',
+          'wget -q --post-data= -O- http://localhost:5001/api/v0/version >/dev/null || exit 1',
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+    networks: [qr-bc-net]
+
+  hardhat:
+    build:
+      context: .
+      dockerfile: contracts/Dockerfile
+    command: ['pnpm', 'exec', 'hardhat', 'node', '--hostname', '0.0.0.0']
+    ports:
+      - '8545:8545'
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'curl -fsSL -X POST -H "Content-Type: application/json" --data ''{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}'' http://localhost:8545 || exit 1',
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+    networks: [qr-bc-net]
+
+  contracts-deployer:
+    build:
+      context: .
+      dockerfile: contracts/Dockerfile
+    depends_on:
+      hardhat: { condition: service_healthy }
+    # Run as root so we can write to the contracts-out named volume
+    # (Docker creates it root-owned). One-shot, exits after writing —
+    # safer than persistently elevating the hub container.
+    user: '0:0'
+    # Deploy + extract the address into /contracts-out/address.txt so the
+    # hub picks it up via env.schema's CONTRACT_ADDRESS fallback (AC-DO-7).
+    command:
+      [
+        'sh',
+        '-c',
+        'pnpm exec hardhat run deploy/01_deploy_product_registry.ts --network localhost && node -e "const j=require(\"./out/address.local.json\");process.stdout.write(j.contractAddress);" > /contracts-out/address.txt && echo "Deployed: $(cat /contracts-out/address.txt)"',
+      ]
+    environment:
+      HARDHAT_RPC_URL: http://hardhat:8545
+    volumes:
+      - contracts-out:/contracts-out
+    networks: [qr-bc-net]
+
+  coordination-hub:
+    build:
+      context: .
+      dockerfile: apps/coordination-hub/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      mongo: { condition: service_healthy }
+      ipfs: { condition: service_healthy }
+      contracts-deployer: { condition: service_completed_successfully, required: false }
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      LOG_LEVEL: info
+      MONGO_URI: mongodb://mongo:27017/qr_bc
+      NETWORK: ${NETWORK:-hardhat}
+      RPC_URL: ${RPC_URL:-http://hardhat:8545}
+      IPFS_PROVIDER: ${IPFS_PROVIDER:-local}
+      IPFS_API_URL: http://ipfs:5001
+      IPFS_GATEWAY_URL: http://ipfs:8080
+      JWT_SECRET: ${JWT_SECRET:-dev-jwt-secret-change-me-AAAAAAAAAAAAAAAAAAAAAA}
+      REFRESH_SECRET: ${REFRESH_SECRET:-dev-refresh-secret-change-me-BBBBBBBBBBBBBBBBBB}
+      # Base64-encoded 32-byte placeholder. NEVER ship this default to
+      # any environment that holds real secrets — generate with:
+      #   openssl rand -base64 32
+      WALLET_ENCRYPTION_KEK: ${WALLET_ENCRYPTION_KEK:-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=}
+      DAILY_SALT_SECRET: ${DAILY_SALT_SECRET:-dev-daily-salt-secret-change-me-YYYYYY}
+      SYSTEM_WALLET_PRIVATE_KEY: ${SYSTEM_WALLET_PRIVATE_KEY:-0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80}
+      CONTRACT_ADDRESS: ${CONTRACT_ADDRESS:-}
+      CORS_ORIGINS: 'http://localhost:3001,http://localhost:3002'
+    volumes:
+      - contracts-out:/contracts-out:ro
+    ports:
+      - '3000:3000'
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'node -e "require(\"http\").get(\"http://localhost:3000/api/v1/health\", r => process.exit(r.statusCode === 200 ? 0 : 1)).on(\"error\", () => process.exit(1))"',
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
+    networks: [qr-bc-net]
+
+  management-portal:
+    build:
+      context: .
+      dockerfile: apps/management-portal/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      coordination-hub: { condition: service_healthy }
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      # Bind to all interfaces so the healthcheck (which uses
+      # localhost == 127.0.0.1) can reach the server. Without this,
+      # Next standalone binds to the container's primary interface
+      # only and 127.0.0.1 returns ECONNREFUSED.
+      HOSTNAME: 0.0.0.0
+      NEXTAUTH_URL: http://localhost:3001
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-dev-nextauth-secret-change-me-CCCCCCCCCCCCC}
+      NEXT_PUBLIC_HUB_BASE_URL: http://localhost:3000/api/v1
+      NEXT_PUBLIC_BLOCKCHAIN_EXPLORER: ${NEXT_PUBLIC_BLOCKCHAIN_EXPLORER:-https://amoy.polygonscan.com}
+    ports:
+      - '3001:3001'
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'node -e "require(\"http\").get(\"http://localhost:3001/vi/login\", r => process.exit(r.statusCode < 500 ? 0 : 1)).on(\"error\", () => process.exit(1))"',
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
+    networks: [qr-bc-net]
+
+  dapp-portal:
+    build:
+      context: .
+      dockerfile: apps/dapp-portal/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      coordination-hub: { condition: service_healthy }
+    environment:
+      NEXT_PUBLIC_HUB_BASE_URL: http://localhost:3000/api/v1
+    ports:
+      - '3002:3002'
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'node -e "require(\"http\").get(\"http://localhost:3002/vi/\", r => process.exit(r.statusCode === 200 ? 0 : 1)).on(\"error\", () => process.exit(1))"',
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    networks: [qr-bc-net]
+
+volumes:
+  mongo-data:
+  ipfs-data:
+  contracts-out:
+
+networks:
+  qr-bc-net:
+    driver: bridge

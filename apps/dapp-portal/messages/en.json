@@ -1,0 +1,79 @@
+{
+  "app": {
+    "name": "Produce Traceability",
+    "tagline": "Blockchain-verified authenticity",
+    "footer": "Open source, auditable, immutable."
+  },
+  "nav": {
+    "home": "Home",
+    "scanner": "Scan",
+    "about": "About",
+    "language": "Language"
+  },
+  "landing": {
+    "title": "Scan a QR to verify a product",
+    "subtitle": "Each product carries a one-time secret identifier recorded on the blockchain.",
+    "scanCta": "Open camera",
+    "pasteCta": "Or paste a URL"
+  },
+  "publicScan": {
+    "title": "Project information",
+    "cooperative": "Cooperative",
+    "vegetable": "Crop",
+    "location": "Region",
+    "startDate": "Season start",
+    "harvestDate": "Harvest",
+    "area": "Area (m²)",
+    "expectedOutput": "Expected output (kg)",
+    "description": "Description",
+    "activitiesTitle": "Cultivation log",
+    "certificationsTitle": "Certifications",
+    "imagesTitle": "Images",
+    "mapTitle": "Map",
+    "noActivities": "No activities recorded yet.",
+    "noCerts": "No certifications attached.",
+    "unknownProject": "Project not found",
+    "unknownProjectHint": "Double-check the link or scan the QR again.",
+    "loading": "Loading…"
+  },
+  "privateScan": {
+    "verifyingTitle": "Verifying scan",
+    "stageVerifying": "Step 1: On-chain pre-check",
+    "stageSubmitting": "Step 2: Submitting transaction",
+    "stageConfirming": "Step 3: Awaiting confirmation",
+    "authenticTitle": "✓ AUTHENTIC",
+    "authenticBody": "This product is genuine. Its secret identifier has been redeemed on-chain and cannot be reused.",
+    "alreadyVerifiedTitle": "✓ Already verified",
+    "alreadyVerifiedBody": "This code was redeemed previously. If your packaging is still sealed, the product may be a counterfeit replica of an authentic scan.",
+    "counterfeitTitle": "✗ NOT GENUINE",
+    "counterfeitBody": "No matching secret identifier on-chain. The product may be counterfeit.",
+    "txHashLabel": "Transaction hash",
+    "viewOnExplorer": "View on Polygonscan",
+    "verifiedAtLabel": "Verified at",
+    "previousVerifiedAt": "Previously verified at",
+    "reportLink": "Report suspicion"
+  },
+  "scanner": {
+    "title": "Scan QR code",
+    "permissionPrompt": "Please allow camera access to scan codes.",
+    "permissionDenied": "Camera access denied. Enable it in your browser settings.",
+    "noCamera": "No camera detected on this device.",
+    "pasteFallbackTitle": "Or paste a URL",
+    "pasteFallbackPlaceholder": "https://…",
+    "pasteFallbackCta": "Open link",
+    "startCamera": "Start camera"
+  },
+  "about": {
+    "title": "About this project",
+    "intro": "Open-source anti-counterfeiting system for agricultural products using Polygon and dual QR codes.",
+    "repoLabel": "Source code",
+    "doiLabel": "Paper DOI",
+    "doiPending": "Pending Zenodo mint",
+    "buildCidLabel": "Build CID",
+    "buildCidPending": "Not pinned"
+  },
+  "errors": {
+    "network": "Cannot reach the server",
+    "retry": "Retry"
+  }
+}
