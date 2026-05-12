@@ -25,8 +25,8 @@
     "html5-qrcode": "^2.3.8",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.460.0",
-    "next": "^14.2.18",
-    "next-intl": "^3.25.0",
+    "next": "^16.2.6",
+    "next-intl": "^4.11.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.5.4"
