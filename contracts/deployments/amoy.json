@@ -1,0 +1,11 @@
+{
+  "contractAddress": "0x07b997F7945Ff7bC65eE92D243dA4441AC3e7481",
+  "chainId": 80002,
+  "network": "amoy",
+  "deployerAddress": "0x72F79F35132b73e9Aa8990650286eFFaE7adF861",
+  "deployTxHash": "0xcb5a2c46d19cf8aeb49f9a7a7ae0dc1f1fd5150cc8a050fdf8bad39c9147219a",
+  "deployBlockNumber": "0x24804e1",
+  "polygonscanUrl": "https://amoy.polygonscan.com/address/0x07b997F7945Ff7bC65eE92D243dA4441AC3e7481",
+  "deployedAt": "2026-05-13",
+  "notes": "Deployed for v1.0.0 release artifact. Reviewer reproducer points at this address via CONTRACT_ADDRESS env var when --network amoy is used."
+}
