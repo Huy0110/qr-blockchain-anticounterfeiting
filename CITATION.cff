@@ -14,6 +14,15 @@ version: 1.0.0
 date-released: 2026-05-13
 license: MIT
 repository-code: 'https://github.com/Huy0110/qr-blockchain-anticounterfeiting'
+doi: 10.5281/zenodo.20150447
+identifiers:
+  - description: Concept DOI (always resolves to the latest version)
+    type: doi
+    value: 10.5281/zenodo.20150447
+  - description: v1.0.0 version-specific DOI
+    type: doi
+    value: 10.5281/zenodo.20150446
+url: 'https://doi.org/10.5281/zenodo.20150447'
 keywords:
   - blockchain
   - anti-counterfeiting

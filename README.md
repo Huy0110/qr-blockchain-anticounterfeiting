@@ -10,7 +10,7 @@
 [![codecov](https://codecov.io/gh/Huy0110/qr-blockchain-anticounterfeiting/branch/main/graph/badge.svg)](https://codecov.io/gh/Huy0110/qr-blockchain-anticounterfeiting)
 [![Slither](https://img.shields.io/badge/Slither-no--high-brightgreen?logo=ethereum)](https://github.com/Huy0110/qr-blockchain-anticounterfeiting/actions/workflows/contracts-ci.yml)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.TBD-lightgrey)](#citation)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20150447.svg)](https://doi.org/10.5281/zenodo.20150447)
 
 ## Citation
 
@@ -34,12 +34,15 @@ the paper and the software:
   year      = {2026},
   version   = {1.0.0},
   url       = {https://github.com/Huy0110/qr-blockchain-anticounterfeiting},
-  note      = {Zenodo DOI: TBD},
+  doi       = {10.5281/zenodo.20150447},
+  note      = {Concept DOI; resolves to the latest released version on Zenodo.},
 }
 ```
 
-The DOI placeholders resolve once the Zenodo deposit fires on the
-first `v1.0.0` tag — see [`docs/RELEASE.md`](docs/RELEASE.md).
+The article DOI is filled once Frontiers publishes the paper; the
+software DOI above is permanent and points to the v1.0.0 Zenodo
+deposit at <https://doi.org/10.5281/zenodo.20150447>. See
+[`docs/RELEASE.md`](docs/RELEASE.md) for the release pipeline.
 
 ## What this is
 
