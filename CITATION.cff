@@ -11,7 +11,7 @@ authors:
     email: dattt@soict.hust.edu.vn
 title: 'qr-blockchain-anticounterfeiting: Reference Implementation for Dual-QR Blockchain Authentication'
 version: 1.0.0
-date-released: 2026-05-11
+date-released: 2026-05-13
 license: MIT
 repository-code: 'https://github.com/Huy0110/qr-blockchain-anticounterfeiting'
 keywords:
