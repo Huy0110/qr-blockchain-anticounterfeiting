@@ -96,21 +96,10 @@ After `make demo` reports success:
 
 The system has three deployable units (a NestJS hub, two Next.js
 portals), one shared TypeScript package, an immutable Solidity
-contract on Polygon, and a reviewer-runnable experiments CLI.
-
-![System context — C4 Level 1](docs/images/architecture-context.png)
-
-![Container diagram — C4 Level 2](docs/images/architecture-container.png)
-
-The Coordination Hub is the only non-trivial container; its internal
-modules are documented at C4 Level 3:
-
-![Component diagram — C4 Level 3 (Coordination Hub)](docs/images/architecture-component.png)
-
-The full text + tables describing each container, its tech choices,
-and the cross-cutting concerns (observability, persistence, secrets)
-lives in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md). Architecture
-Decision Records are at
+contract on Polygon, and a reviewer-runnable experiments CLI. The
+full C4 diagrams (Context, Container, Component) and the per-tier
+tech rationale live in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md);
+Architecture Decision Records are at
 [`docs/architecture/decision-log.md`](docs/architecture/decision-log.md).
 
 ## Repo structure
