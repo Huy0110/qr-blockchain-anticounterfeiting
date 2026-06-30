@@ -18,7 +18,7 @@
     "typecheck": "echo 'no workspaces yet' && exit 0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.5.0",
+    "@commitlint/cli": "^21.2.0",
     "@commitlint/config-conventional": "^19.5.0",
     "@typescript-eslint/eslint-plugin": "^8.13.0",
     "@typescript-eslint/parser": "^8.13.0",
